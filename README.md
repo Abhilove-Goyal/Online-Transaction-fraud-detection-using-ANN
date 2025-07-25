@@ -1,7 +1,5 @@
 # Online Transaction Fraud Detection
 
-![Project Banner](https://via.placeholder.com/800x200?text=Online+Transaction+Fraud+Detection)
-
 ## 📌 Overview
 This project focuses on detecting fraudulent online transactions using a hybrid AI approach combining **Machine Learning (Random Forest)** and **Deep Learning (ANN)**. The system addresses the challenge of extreme class imbalance (fraudulent transactions <1%) and achieves high recall (100%) and precision (75%) through ensemble modeling.
 
@@ -14,7 +12,7 @@ This project focuses on detecting fraudulent online transactions using a hybrid 
 - **Performance Metrics**:  
   - Recall: 100%  
   - Precision: 75%  
-  - F1-Score: 93-95%  
+  - F1-Score: 91% 
   - Accuracy: 89%  
 
 ---
@@ -46,9 +44,9 @@ This project focuses on detecting fraudulent online transactions using a hybrid 
 ---
 
 ## 🖥️ Web App Screenshots
-| Home Page | Prediction Interface | EDA Dashboard |
-|-----------|----------------------|---------------|
-| ![Home](https://via.placeholder.com/300x200?text=Home+Page) | ![Prediction](https://via.placeholder.com/300x200?text=Prediction) | ![EDA](https://via.placeholder.com/300x200?text=EDA+Dashboard) |
+| Home Page | Prediction Interface | EDA Dashboard | Accuracy|
+|-----------|----------------------|---------------|---------|
+| ![Home](home.png) | ![Prediction](detector.png) | ![EDA](eda.png) | ![acc](accuracy.png)
 
 ---
 

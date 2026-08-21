@@ -106,7 +106,9 @@ elif page == "📊 Graphs":
     # Load data with caching and sampling
     @st.cache_data
     def load_data():
-        df = pd.read_csv("onlinefraud_.csv")
+        DATA_PATH = os.path.join(os.path.dirname(__file__), "onlinefraud_.csv")
+        df = pd.read_csv(DATA_PATH)
+        return df
 
     df = load_data()
 

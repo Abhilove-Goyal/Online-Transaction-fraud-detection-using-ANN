@@ -5,14 +5,16 @@ from tensorflow.keras.models import load_model
 from keras.models import load_model
 import plotly.express as px
 import pandas as pd
-
+import os
 # Load models and scaler
 @st.cache_resource
+
 def load_models():
-    model = load_model('models\ann_model.h5')
-    rf_model = joblib.load('models\rf_fraud_detector.joblib')
-    meta_model = joblib.load('models\ensemble_meta_model.joblib')
-    scaler = joblib.load('models\feature_scaler.joblib')
+    MODELS_DIR = os.path.join(os.path.dirname(__file__), 'models')
+    model = load_model(os.path.join(MODELS_DIR, 'ann_model.h5'))
+    rf_model = joblib.load(os.path.join(MODELS_DIR, 'rf_fraud_detector.joblib'))
+    meta_model = joblib.load(os.path.join(MODELS_DIR, 'ensemble_meta_model.joblib'))
+    scaler = joblib.load(os.path.join(MODELS_DIR, 'feature_scaler.joblib'))
     return ann_model, rf_model, meta_model, scaler
 
 ann_model, rf_model, meta_model, scaler = load_models()

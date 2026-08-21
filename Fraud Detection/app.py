@@ -2,16 +2,15 @@ import streamlit as st
 import numpy as np
 import joblib
 from tensorflow.keras.models import load_model
-from keras.models import load_model
 import plotly.express as px
 import pandas as pd
 import os
+
 # Load models and scaler
 @st.cache_resource
-
 def load_models():
     MODELS_DIR = os.path.join(os.path.dirname(__file__), 'models')
-    model = load_model(os.path.join(MODELS_DIR, 'ann_model.h5'))
+    ann_model = load_model(os.path.join(MODELS_DIR, 'ann_model.h5'), compile=False)
     rf_model = joblib.load(os.path.join(MODELS_DIR, 'rf_fraud_detector.joblib'))
     meta_model = joblib.load(os.path.join(MODELS_DIR, 'ensemble_meta_model.joblib'))
     scaler = joblib.load(os.path.join(MODELS_DIR, 'feature_scaler.joblib'))
@@ -31,7 +30,7 @@ def predict_transaction(features):
 
 # Sidebar menu
 st.sidebar.title("🧭 Navigation")
-page = st.sidebar.radio("Go to", ["🏠 Home", "📊 Graphs", "🔍 Prediction","🧠 Model Insights"])
+page = st.sidebar.radio("Go to", ["🏠 Home", "📊 Graphs", "🔍 Prediction", "🧠 Model Insights"])
 
 # Home Page
 if page == "🏠 Home":
@@ -40,7 +39,7 @@ if page == "🏠 Home":
     ### 🚀 Hybrid AI for Financial Security
     A **production-ready fraud detector** combining machine learning and deep learning, built to handle highly imbalanced transactional data.
     """)
-    
+
     # Tech Stack Visualization
     with st.expander("⚙️ Technical Architecture", expanded=True):
         st.markdown("""
@@ -53,48 +52,48 @@ if page == "🏠 Home":
         3. **Meta-Model**  
            - ⚖️ Logistic Regression combining ML+DL outputs  
         """)
-    
+
     # Key Strengths (Now 4 Points)
     st.markdown("""
     ### 🏆 Key Advantages
     🔹 **Hybrid Intelligence**  
     - First layer: Traditional ML (RF) + Deep Learning (ANN)  
     - Second layer: Logistic Regression meta-model for optimal decisions  
-    
+
     🔹 **Imbalance Mastery**  
     - Handled extreme class imbalance (0.1% fraud) via SMOTE+Undersampling  
     - Achieved 100% fraud recall without overfitting  
-    
+
     🔹 **Production-Ready**  
     - Streamlit interface for real-time predictions  
     - <100ms inference time per transaction  
-    
+
     🔹 **Explainable AI**  
     - Shows feature contributions for each prediction  
     - Clear precision/recall tradeoff control  
     """)
-    
+
     # Performance Metrics (Your Actual Numbers)
     with st.expander("📊 Performance Metrics", expanded=False):
         st.markdown("""
         ```python
         # Classification Report
                        precision  recall  f1-score   support
-        
+
             Legit       1.00      0.83      0.91    27,872
             Fraud       0.75      1.00      0.86    14,002
-        
+
         accuracy                           0.89    41,874
         ```
         """)
         st.progress(0.89, text="Overall Accuracy: 89%")
-    
+
     st.success("""
     **Try It Yourself:**  
     → Predictions: Test transactions in real-time  
     → Analysis: Explore fraud patterns in Graphs  
     """)
-    
+
     st.warning("""
     ⚠️ **Note**: 100% fraud recall comes with 25% false positives -  
     ideal for high-risk financial applications where missing fraud is costlier than manual reviews.
@@ -103,7 +102,7 @@ if page == "🏠 Home":
 # Graphs Page
 elif page == "📊 Graphs":
     st.title("📊 Exploratory Graphs")
-    
+
     # Load data with caching and sampling
     @st.cache_data
     def load_data():
@@ -111,7 +110,7 @@ elif page == "📊 Graphs":
         return df.sample(frac=0.2, random_state=42)  # Sample 20% of data
 
     df = load_data()
-    
+
     # Add performance toggle
     fast_mode = st.toggle("Fast Mode (reduces data size)", value=True)
     if fast_mode:
@@ -216,7 +215,7 @@ elif page == "🔍 Prediction":
                 st.write(""" 
                         In fraud cases, Transfers are shady because banks don't monitor them as hard as payments—
                          scammers exploit this to move money fast before anyone notices. Cash Outs? Even worse. They convert your 
-                         digital balance to untraceable physical cash, which fraudsters love because it’s like turning stolen credit into 
+                         digital balance to untraceable physical cash, which fraudsters love because it's like turning stolen credit into 
                          cold hard cash at an ATM.
                         """)
             else:
@@ -229,7 +228,7 @@ elif page == "🧠 Model Insights":
 
     st.markdown("""
     Our fraud detection system uses an **ensemble model** that combines:
-    
+
     - 🤖 A **Neural Network (ANN)** trained on transaction patterns
     - 🌲 A **Random Forest Classifier** for pattern-based classification
     - 🧠 A **Meta-model** that intelligently merges predictions from both
@@ -251,5 +250,3 @@ elif page == "🧠 Model Insights":
     """)
 
     st.success("Try different values in 'Prediction' tab to see how the model reacts!")
-
-

@@ -9,10 +9,10 @@ import pandas as pd
 # Load models and scaler
 @st.cache_resource
 def load_models():
-    ann_model = load_model("models\\ann_model.h5", compile=False)
-    rf_model = joblib.load("models/rf_fraud_detector.joblib")
-    meta_model = joblib.load("models/ensemble_meta_model.joblib")
-    scaler = joblib.load("models/feature_scaler.joblib")
+    model = load_model('models\ann_model.h5')
+    rf_model = joblib.load('models\rf_fraud_detector.joblib')
+    meta_model = joblib.load('models\ensemble_meta_model.joblib')
+    scaler = joblib.load('models\feature_scaler.joblib')
     return ann_model, rf_model, meta_model, scaler
 
 ann_model, rf_model, meta_model, scaler = load_models()
